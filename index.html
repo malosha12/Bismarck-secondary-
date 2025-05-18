@@ -955,6 +955,7 @@
                     </div>
                     <button class="btn btn-primary" id="viewResultsBtn">View Results</button>
                     <button class="btn btn-success" id="printResultsBtn">Print Results (PDF)</button>
+                    <button class="btn btn-success" id="exportToCSVBtn">Export to CSV</button>
                     <button class="btn btn-success" id="showResultsDisplayBtn">Show Results</button>
                     <button class="btn btn-danger" id="hideResultsDisplayBtn" style="display: none;">Hide Results</button>
                     <div id="resultsDisplay" style="margin-top: 15px; display: none;"></div>
@@ -1014,6 +1015,7 @@
         <button class="btn btn-primary" id="viewPastResultsBtn">View Past Results</button>
         <button class="btn btn-success" id="showPastResultsDisplayBtn">Show Past Results</button>
         <button class="btn btn-success" id="printPastResultsBtn">Print Past Results (PDF)</button>
+        <button class="btn btn-success" id="exportPastToCSVBtn">Export to CSV</button>
         <button class="btn btn-danger" id="hidePastResultsDisplayBtn" style="display: none;">Hide Past Results</button>
         <div id="pastResultsDisplay" style="margin-top: 15px; display: none;"></div>
     </div>
@@ -1991,6 +1993,68 @@ function printResults() {
         showNotification('Error', `Failed to generate PDF: ${error.message}`, 'error');
     });
 }
+        function exportToCSV(classId, streamId, yearId, examTypeId, displayId) {
+    console.log('Exporting results to CSV');
+    const studentClass = document.getElementById(classId)?.value;
+    const stream = document.getElementById(streamId)?.value;
+    const year = document.getElementById(yearId)?.value;
+    const examType = document.getElementById(examTypeId)?.value;
+    const resultsDisplayDiv = document.getElementById(displayId);
+
+    if (!studentClass || !stream || !year || !examType || !resultsDisplayDiv.innerHTML) {
+        showNotification('Information', 'Please fill all fields and view results first!', 'error');
+        return;
+    }
+
+    const filteredStudents = students
+        .filter(s => s.class === studentClass && s.stream === stream && s.year === year)
+        .sort((a, b) => a.fullName.localeCompare(b.fullName));
+
+    if (!filteredStudents.length) {
+        showNotification('Information', 'No students found to export!', 'error');
+        return;
+    }
+
+    // Create CSV header
+    let csv = 'Name,' + getSubjects().map(subject => `${getSubjectAbbreviation(subject)} Marks,${getSubjectAbbreviation(subject)} Grade`).join(',') + ',Total Marks,Total Grade,Points,Division\n';
+
+    // Populate CSV rows
+    filteredStudents.forEach(student => {
+        let row = [student.fullName.replace(/,/g, '')]; // Remove commas from names to avoid CSV issues
+        let totalMarks = 0;
+        let subjectCount = 0;
+        const points = [];
+
+        getSubjects().forEach(subject => {
+            const result = results.find(r => r.studentId === student.id && r.examType === examType && r.subject === subject);
+            const marks = result ? result.marks : '-';
+            const grade = result ? getGrade(result.marks) : '-';
+            row.push(marks, grade);
+            if (result && subject !== 'EDK' && ['A', 'B', 'C', 'D', 'F'].includes(grade)) {
+                totalMarks += parseInt(marks) || 0;
+                subjectCount++;
+                points.push(getPoints(grade));
+            }
+        });
+
+        const totalGrade = getTotalGrade(totalMarks, subjectCount);
+        const totalPoints = points.filter(p => p !== null).sort((a, b) => a - b).slice(0, 7).reduce((sum, p) => sum + p, 0) || '-';
+        const division = getDivision(points);
+
+        row.push(totalMarks || '-', totalGrade, totalPoints, division);
+        csv += row.join(',') + '\n';
+    });
+
+    // Create and download CSV file
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Bismarck_Results_${studentClass}_${stream}_${examType}_${year}.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+    showNotification('Success', 'Results exported to CSV successfully!', 'success');
+        }
 function updateResultsTable() {
     console.log('Updating results table');
     const resultsTableDiv = document.getElementById('resultsTable');
@@ -2939,6 +3003,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
    document.getElementById('viewResultsBtn')?.addEventListener('click', viewResults);
 document.getElementById('printResultsBtn')?.addEventListener('click', printResults);
+document.getElementById('exportToCSVBtn')?.addEventListener('click', () => exportToCSV('resultsClass', 'resultsStream', 'resultsYear', 'resultsExamType', 'resultsDisplay')); // Mstari uliorekebishwa
+document.getElementById('viewPastResultsBtn')?.addEventListener('click', viewPastResults);
+document.getElementById('printPastResultsBtn')?.addEventListener('click', printPastResults);
+document.getElementById('exportPastToCSVBtn')?.addEventListener('click', () => exportToCSV('pastResultsClass', 'pastResultsStream', 'pastResultsYear', 'pastResultsExamType', 'pastResultsDisplay'));
 document.getElementById('showResultsDisplayBtn')?.addEventListener('click', () => showSection('resultsDisplay', 'showResultsDisplayBtn', 'hideResultsDisplayBtn'));
 document.getElementById('hideResultsDisplayBtn')?.addEventListener('click', () => hideSection('resultsDisplay', 'showResultsDisplayBtn', 'hideResultsDisplayBtn'));
 
