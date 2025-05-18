@@ -1947,31 +1947,50 @@ function saveMarks() {
         showNotification('Error', `Failed to save progress: ${error.message}`, 'error');
     });
 }
+function printResults() {
+    console.log('Printing results');
+    const resultsDisplayDiv = document.getElementById('resultsDisplay');
+    const studentClass = document.getElementById('resultsClass')?.value;
+    const stream = document.getElementById('resultsStream')?.value;
+    const year = document.getElementById('resultsYear')?.value;
+    const examType = document.getElementById('resultsExamType')?.value;
 
-function printPastResults() {
-    console.log('Printing past results');
-    const pastResultsDisplayDiv = document.getElementById('pastResultsDisplay');
-    const studentClass = document.getElementById('pastResultsClass')?.value;
-    const stream = document.getElementById('pastResultsStream')?.value;
-    const year = document.getElementById('pastResultsYear')?.value;
-    const examType = document.getElementById('pastResultsExamType')?.value;
-
-    if (!pastResultsDisplayDiv.innerHTML) {
-        showNotification('Information', 'No past results to print!', 'error');
+    if (!resultsDisplayDiv.innerHTML) {
+        showNotification('Information', 'No results to print!', 'error');
         return;
     }
 
+    // Create a detailed print header
+    const printHeader = document.createElement('div');
+    printHeader.className = 'print-header';
+    printHeader.innerHTML = `
+        <h1>Bismarck Secondary School</h1>
+        <p>Examination Results</p>
+        <p>Class: ${studentClass} ${stream}</p>
+        <p>Exam Type: ${examType}</p>
+        <p>Year: ${year}</p>
+        <p>Date: ${new Date().toLocaleDateString()}</p>
+    `;
+
+    // Clone the results display and prepend the header
+    const printContent = document.createElement('div');
+    printContent.appendChild(printHeader);
+    printContent.appendChild(resultsDisplayDiv.cloneNode(true));
+
     const opt = {
-        margin: 1,
-        filename: `Bismarck_Past_Results_${studentClass}_${stream}_${examType}_${year}.pdf`,
+        margin: [0.5, 0.2, 0.5, 0.2], // Reduced margins
+        filename: `Bismarck_Results_${studentClass}_${stream}_${examType}_${year}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        html2canvas: { scale: 1.5, width: 1600 }, // Adjusted scale and width for A3
+        jsPDF: { unit: 'in', format: 'a3', orientation: 'landscape' } // A3 landscape for wide tables
     };
 
-    html2pdf().from(pastResultsDisplayDiv).set(opt).save();
+    html2pdf().from(printContent).set(opt).save().then(() => {
+        showNotification('Success', 'Results PDF generated successfully!', 'success');
+    }).catch(error => {
+        showNotification('Error', `Failed to generate PDF: ${error.message}`, 'error');
+    });
 }
-
 function updateResultsTable() {
     console.log('Updating results table');
     const resultsTableDiv = document.getElementById('resultsTable');
