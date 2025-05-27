@@ -657,7 +657,7 @@
     color: #333;
 }
 .progress-bar {
-    width: 100%;
+        width: 100%;
     background-color: #e0e0e0;
     border-radius: 5px;
     overflow: hidden;
@@ -971,7 +971,7 @@
                             <label for="authSubject">Subject</label>
                             <select id="authSubject" required>
                                 <option value="">Select Subject</option>
-                                <option value="Tanzania History">Tanzania History</option>
+                                <option value="Tanzania History">History ya tanzania na maadili </option>
                                 <option value="History">History</option>
                                 <option value="Geography">Geography</option>
                                 <option value="Kiswahili">Kiswahili</option>
@@ -1062,7 +1062,7 @@
                         <button class="btn btn-success" id="saveMarksBtn">Save Marks</button>
                     </div>
                     <button class="btn btn-success" id="showResultsTableBtn">Show Results Table</button>
-                    <button class="btn btn-danger" id="hideResultsTableBtn" style="display: none;">Hide Results Table</button>
+                                        <button class="btn btn-danger" id="hideResultsTableBtn" style="display: none;">Hide Results Table</button>
                     <div id="resultsTable" style="margin-top: 15px; display: none;"></div>
                     <div style="margin-top: 15px;">
                         <button class="btn btn-success" id="submitResultsBtn">Submit Results</button>
@@ -1121,7 +1121,7 @@
                         <label for="editResultSubject">Subject</label>
                         <select id="editResultSubject">
                             <option value="">Select Subject</option>
-                            <option value="Tanzania History">Tanzania History</option>
+                            <option value="Tanzania History">History ya tanzania na maadili </option>
                             <option value="History">History</option>
                             <option value="Geography">Geography</option>
                             <option value="Kiswahili">Kiswahili</option>
@@ -1145,69 +1145,79 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- View Results Tab -->
-             <div id="results" class="tab-content">
+         <!-- View Results Tab -->
+<div id="results" class="tab-content">
     <div class="card">
         <h2>View Results</h2>
         <button class="btn btn-danger" onclick="goBack()">Back</button>
+
+        <!-- Password authentication form -->
         <div class="form-group">
-            <label for="searchResultsName">Search Student by Name</label>
-            <input type="text" id="searchResultsName" placeholder="Enter student name">
+            <label for="viewResultsPassword">Enter Password to View Results</label>
+            <input type="password" id="viewResultsPassword" placeholder="Enter password" required>
+            <button class="btn btn-primary" onclick="checkPassword()">Submit Password</button>
         </div>
-        <div class="form-group">
-            <label for="resultsClass">Class</label>
-            <select id="resultsClass">
-                <option value="">Select Class</option>
-                <option value="Form 1">Form 1</option>
-                <option value="Form 2">Form 2</option>
-                <option value="Form 3">Form 3</option>
-                <option value="Form 4">Form 4</option>
-            </select>
+
+        <!-- Hidden form - only shows after correct password -->
+        <div id="resultsFormSection" style="display: none;">
+            <div class="form-group">
+                <label for="searchResultsName">Search Student by Name</label>
+                <input type="text" id="searchResultsName" placeholder="Enter student name">
+            </div>
+            <div class="form-group">
+                <label for="resultsClass">Class</label>
+                <select id="resultsClass">
+                    <option value="">Select Class</option>
+                    <option value="Form 1">Form 1</option>
+                    <option value="Form 2">Form 2</option>
+                    <option value="Form 3">Form 3</option>
+                    <option value="Form 4">Form 4</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="resultsStream">Stream</label>
+                <select id="resultsStream">
+                    <option value="">Select Stream</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="resultsYear">Year</label>
+                <select id="resultsYear">
+                    <option value="">Select Year</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="resultsExamType">Exam Type</label>
+                <select id="resultsExamType">
+                    <option value="">Select Exam Type</option>
+                    <option value="Midterm">Midterm</option>
+                    <option value="Terminal">Terminal</option>
+                    <option value="Weekly Test">Weekly Test</option>
+                    <option value="Mock">Mock</option>
+                    <option value="Pre-National">Pre-National</option>
+                    <option value="Annual">Annual</option>
+                    <option value="Classes Test">Classes Test</option>
+                    <option value="Other Exam">Other Exam</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" id="viewResultsBtn" onclick="viewResults()">View Results</button>
+            <button class="btn btn-success" id="printResultsBtn">Print Results (PDF)</button>
+            <button class="btn btn-success" id="exportToCSVBtn">Export to CSV</button>
+            <button class="btn btn-success" id="exportToWordBtn">Export to Word</button>
+            <button class="btn btn-success" id="exportToExcelBtn">Export to Excel</button>
+            <button class="btn btn-success" id="showResultsDisplayBtn">Show Results</button>
+            <button class="btn btn-danger" id="hideResultsDisplayBtn" style="display: none;">Hide Results</button>
+            <div id="resultsDisplay" style="margin-top: 15px; display: none;"></div>
         </div>
-        <div class="form-group">
-            <label for="resultsStream">Stream</label>
-            <select id="resultsStream">
-                <option value="">Select Stream</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="resultsYear">Year</label>
-            <select id="resultsYear">
-                <option value="">Select Year</option>
-                <option value="2025">2025</option>
-                <option value="2026">2026</option>
-                <option value="2027">2027</option>
-                <option value="2028">2028</option>
-                <option value="2029">2029</option>
-                <option value="2030">2030</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="resultsExamType">Exam Type</label>
-            <select id="resultsExamType">
-                <option value="">Select Exam Type</option>
-                <option value="Midterm">Midterm</option>
-                <option value="Terminal">Terminal</option>
-                <option value="Weekly Test">Weekly Test</option>
-                <option value="Mock">Mock</option>
-                <option value="Pre-National">Pre-National</option>
-                <option value="Annual">Annual</option>
-                <option value="Classes Test">Classes Test</option>
-                <option value="Other Exam">Other Exam</option>
-            </select>
-        </div>
-        <button class="btn btn-primary" id="viewResultsBtn">View Results</button>
-        <button class="btn btn-success" id="printResultsBtn">Print Results (PDF)</button>
-        <button class="btn btn-success" id="exportToCSVBtn">Export to CSV</button>
-        <button class="btn btn-success" id="exportToWordBtn">Export to Word</button>
-        <button class="btn btn-success" id="exportToExcelBtn">Export to Excel</button>
-        <button class="btn btn-success" id="showResultsDisplayBtn">Show Results</button>
-        <button class="btn btn-danger" id="hideResultsDisplayBtn" style="display: none;">Hide Results</button>
-        <div id="resultsDisplay" style="margin-top: 15px; display: none;"></div>
     </div>
 </div>
             <!-- Past Results Tab -->
@@ -1386,7 +1396,7 @@
                         </div>
                         <div class="card">
                             <h3>Registered Students</h3>
-                            <div class="form-group">
+                                  <div class="form-group">
                                 <label for="deleteStudentClass">Class</label>
                                 <select id="deleteStudentClass">
                                     <option value="">Select Class</option>
@@ -2731,6 +2741,30 @@ function updateResult(resultId) {
     });
 }
 
+function checkPassword() {
+    const password = document.getElementById('viewResultsPassword').value;
+    if (password === '1340') {
+        document.getElementById('resultsFormSection').style.display = 'block';
+        showNotification('Success', 'Access granted to view results.', 'success');
+    } else {
+        showNotification('Access Denied', 'Incorrect password! Please try again.', 'error');
+    }
+}
+function checkViewResultsPassword() {
+    const enteredPassword = document.getElementById('viewResultsPassword').value;
+    const correctPassword = "your_password_here"; // badilisha na password halisi
+
+    if (enteredPassword === correctPassword) {
+        const formSection = document.getElementById('resultsFormSection');
+        formSection.style.display = 'block';
+        formSection.style.visibility = 'visible';
+        formSection.style.opacity = '1';
+        formSection.style.pointerEvents = 'auto';
+        showNotification('Success', 'Umefanikiwa kufungua fomu ya matokeo.', 'success');
+    } else {
+        showNotification('Error', 'Password sio sahihi!', 'error');
+    }
+}
 function viewResults() {
     console.log('Viewing results');
     const studentClass = document.getElementById('resultsClass').value;
@@ -3481,22 +3515,34 @@ function sendSMS(studentId) {
         }
     });
 
-    const message = `Bismarck Secondary School\n` +
-                `----------------------------------------\n` +
-                `TAARIFA YA MATOKEO YA MTIHANI\n\n` +
-                `Ndugu Mzazi/Mlezi,\n\n` +
-                `Tunapenda kukujulisha matokeo ya mwanafunzi wako kama ifuatavyo:\n\n` +
-                `Jina: ${student.fullName}\n` +
-                `Darasa: ${studentClass} ${stream}\n` +
-                `Mtihani: ${examType} - ${year}\n\n` +
-                `Matokeo ya Masomo:\n${subjectsList}\n` +
-                `Jumla: Division ${division}\n\n` +
-                `Tunaipongeza familia kwa mafanikio haya. Tunaendelea kuhimiza ushirikiano wa karibu kati ya shule na mzazi/mlezi ili kuhakikisha maendeleo bora zaidi kwa mwanafunzi.\n\n` +
-                `Kwa maelezo zaidi, tafadhali wasiliana na ofisi ya shule.\n\n` +
-                `Wako kwa huduma,\n` +
-                `Mwalimu Mkuu\n` +
-                `Bismarck Secondary School\n` +
-                `----------------------------------------`;
+    const message = `Bismarck Secondary School
+----------------------------------------
+TAARIFA YA MATOKEO YA MTIHANI
+
+Ndugu Mzazi/Mlezi,
+
+Tunapenda kukujulisha matokeo ya Mtoto wako kama ifuatavyo:
+
+Jina: ${student.fullName}
+Darasa: ${studentClass} ${stream}
+Mtihani: ${examType} - ${year}
+
+Matokeo ya Masomo:
+${subjectsList}
+
+Jumla: Division ${division}
+
+Tunaendelea kuhimiza ushirikiano wa karibu kati ya shule na mzazi/mlezi ili kuhakikisha maendeleo bora zaidi kwa mwanafunzi.
+
+Kwa maelezo zaidi, wasiliana na:
+MTAALUMA - 0767079863
+MKUU WA SHULE - 0657244774
+
+WAKO KATIKA UJENZI WA TAIFA
+ALI TWAHA MRUMA
+MKUU WA SHULE
+BISMARCK SECONDARY SCHOOL
+----------------------------------------`;
 
     const smsUrl = `sms:${student.phoneNumber}?body=${encodeURIComponent(message)}`;
     window.location.href = smsUrl;
