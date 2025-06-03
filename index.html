@@ -902,18 +902,34 @@
                         <button class="btn btn-primary" id="searchStudentBtn">Search</button>
                     </div>
                     <div class="form-group">
-                        <label for="searchExamType">Exam Type</label>
-                        <select id="searchExamType">
-                            <option value="">Select Exam Type</option>
-                            <option value="Midterm">Midterm</option>
-                            <option value="Terminal">Terminal</option>
-                            <option value="Weekly Test">Weekly Test</option>
-                            <option value="Mock">Mock</option>
-                            <option value="Pre-National">Pre-National</option>
-                            <option value="Annual">Annual</option>
-                            <option value="Classes Test">Classes Test</option>
-                            <option value="Other Exam">Other Exam</option>
-                        </select>
+    <label for="searchExamType">Exam Type</label>
+    <select id="searchExamType">
+        <option value="">Select Exam Type</option>
+        <option value="Midterm">Midterm</option>
+        <option value="Terminal">Terminal</option>
+        <option value="Weekly Test">Weekly Test</option>
+        <option value="Mock">Mock</option>
+        <option value="Pre-National">Pre-National</option>
+        <option value="Annual">Annual</option>
+        <option value="Classes Test">Classes Test</option>
+        <option value="Other Exam">Other Exam</option>
+
+        <!-- Round Examinations -->
+        <option value="Round 1">Round 1</option>
+        <option value="Round 2">Round 2</option>
+        <option value="Round 3">Round 3</option>
+        <option value="Round 4">Round 4</option>
+        <option value="Round 5">Round 5</option>
+        <option value="Round 6">Round 6</option>
+
+        <!-- Set Examinations -->
+        <option value="Set 1">Set 1</option>
+        <option value="Set 2">Set 2</option>
+        <option value="Set 3">Set 3</option>
+        <option value="Set 4">Set 4</option>
+        <option value="Set 5">Set 5</option>
+        <option value="Set 6">Set 6</option>
+    </select>
                     </div>
                     <div id="searchResults"></div>
                     <div class="form-group">
@@ -953,198 +969,394 @@
                     <div id="studentList" style="margin-top: 15px; display: none;"></div>
                 </div>
             </div>
-
             <!-- Enter Results Tab -->
+
            <div id="resultsEntry" class="tab-content">
+
                 <div class="card" id="teacherAuthPanel">
+
                     <h2>TEACHER AUTHENTICATION</h2>
+
                     <form id="teacherAuthForm">
+
                         <div class="form-group">
+
                             <label for="authTeacherName">Teacher Name</label>
+
                             <input type="text" id="authTeacherName" required>
+
                         </div>
+
                         <div class="form-group">
+
                             <label for="authTeacherPassword">Password</label>
+
                             <input type="password" id="authTeacherPassword" required>
+
                         </div>
+
                         <div class="form-group">
+
                             <label for="authSubject">Subject</label>
+
                             <select id="authSubject" required>
+
                                 <option value="">Select Subject</option>
+
                                 <option value="Tanzania History">History ya tanzania na maadili </option>
+
                                 <option value="History">History</option>
+
                                 <option value="Geography">Geography</option>
+
                                 <option value="Kiswahili">Kiswahili</option>
+
                                 <option value="English">English</option>
+
                                 <option value="Biology">Biology</option>
+
                                 <option value="Chemistry">Chemistry</option>
+
                                 <option value="Physics">Physics</option>
+
                                 <option value="Mathematics">Mathematics</option>
+
                                 <option value="Business Study">Business Study</option>
+
                                 <option value="EDK">EDK</option>
+
                                 <option value="Book Keeping">Book Keeping</option>
+
                                 <option value="Civics">Civics</option>
+
                             </select>
+
                         </div>
+
                         <button type="submit" class="btn btn-primary" id="registerTeacherBtn">Register</button>
+
                         <button type="submit" class="btn btn-success" id="loginTeacherBtn">Login</button>
+
                     </form>
+
                 </div>
+
+
 
                 <div id="resultsEntryPanel" class="card" style="display: none;">
+
                     <h2>Enter Results</h2>
+
                     <button class="btn btn-danger" id="logoutTeacherBtn">Logout</button>
+
                     <button class="btn btn-danger" onclick="goBack()">Back</button>
+
                     <div class="form-group">
+
                         <label for="resultClass">Class</label>
+
                         <select id="resultClass" required>
+
                             <option value="">Select Class</option>
+
                             <option value="Form 1">Form 1</option>
+
                             <option value="Form 2">Form 2</option>
+
                             <option value="Form 3">Form 3</option>
+
                             <option value="Form 4">Form 4</option>
+
                         </select>
+
                     </div>
+
                     <div class="form-group">
+
                         <label for="resultStream">Stream</label>
+
                         <select id="resultStream" required>
+
                             <option value="">Select Stream</option>
+
                             <option value="A">A</option>
+
                             <option value="B">B</option>
+
                             <option value="C">C</option>
+
                         </select>
+
                     </div>
+
                     <div class="form-group">
+
                         <label for="resultYear">Year</label>
+
                         <select id="resultYear" required>
+
                             <option value="">Select Year</option>
+
                             <option value="2025">2025</option>
+
                             <option value="2026">2026</option>
+
                             <option value="2027">2027</option>
+
                             <option value="2028">2028</option>
+
                             <option value="2029">2029</option>
+
                             <option value="2030">2030</option>
+
                         </select>
+
                     </div>
+
                     <div class="form-group">
-                        <label for="resultExamType">Exam Type</label>
-                        <select id="resultExamType" required>
-                            <option value="">Select Exam Type</option>
-                            <option value="Midterm">Midterm</option>
-                            <option value="Terminal">Terminal</option>
-                            <option value="Weekly Test">Weekly Test</option>
-                            <option value="Mock">Mock</option>
-                            <option value="Pre-National">Pre-National</option>
-                            <option value="Annual">Annual</option>
-                            <option value="Classes Test">Classes Test</option>
-                            <option value="Other Exam">Other Exam</option>
-                        </select>
+    <label for="resultExamType">Exam Type</label>
+    <select id="resultExamType" required>
+        <option value="">Select Exam Type</option>
+        <option value="Midterm">Midterm</option>
+        <option value="Terminal">Terminal</option>
+        <option value="Weekly Test">Weekly Test</option>
+        <option value="Mock">Mock</option>
+        <option value="Pre-National">Pre-National</option>
+        <option value="Annual">Annual</option>
+        <option value="Classes Test">Classes Test</option>
+        <option value="Other Exam">Other Exam</option>
+
+        <!-- Round Examinations -->
+        <option value="Round 1">Round 1</option>
+        <option value="Round 2">Round 2</option>
+        <option value="Round 3">Round 3</option>
+        <option value="Round 4">Round 4</option>
+        <option value="Round 5">Round 5</option>
+        <option value="Round 6">Round 6</option>
+
+        <!-- Set Examinations -->
+        <option value="Set 1">Set 1</option>
+        <option value="Set 2">Set 2</option>
+        <option value="Set 3">Set 3</option>
+        <option value="Set 4">Set 4</option>
+        <option value="Set 5">Set 5</option>
+        <option value="Set 6">Set 6</option>
+    </select>
                     </div>
+
                     <div class="form-group">
+
                         <label for="resultSubject">Subject</label>
+
                         <select id="resultSubject" required disabled>
+
                             <option value="">Select Subject</option>
+
                         </select>
+
                     </div>
+
                     <button class="btn btn-primary" id="loadStudentsForResultsBtn">Start Entering Results</button>
+
                     <button class="btn btn-success" id="showResultEntryFormBtn">Show Results Entry Form</button>
+
                     <button class="btn btn-danger" id="hideResultEntryFormBtn" style="display: none;">Hide Results Entry Form</button>
+
                     <div id="resultEntryForm" style="margin-top: 15px; display: none;">
+
                         <h3>Enter Marks for <span id="currentStudent" class="highlight-name"></span></h3>
+
                         <div class="progress-bar">
+
                             <div class="progress" id="progressBar"></div>
+
                         </div>
+
                         <p id="progressText"></p>
+
                         <div class="form-group">
+
                             <label for="marks">Marks (0–100)</label>
+
                             <input type="number" id="marks" min="0" max="100" required>
+
                         </div>
+
                         <button class="btn btn-success" id="saveMarksBtn">Save Marks</button>
+
                     </div>
+
                     <button class="btn btn-success" id="showResultsTableBtn">Show Results Table</button>
+
                                         <button class="btn btn-danger" id="hideResultsTableBtn" style="display: none;">Hide Results Table</button>
+
                     <div id="resultsTable" style="margin-top: 15px; display: none;"></div>
+
                     <div style="margin-top: 15px;">
+
                         <button class="btn btn-success" id="submitResultsBtn">Submit Results</button>
+
                     </div>
+
                 </div>
 
+
+
                 <div id="editResultsPanel" class="card" style="display: none;">
+
                     <h2>Edit Results</h2>
+
                     <button class="btn btn-danger" onclick="goBack()">Back</button>
+
                     <div class="form-group">
+
                         <label for="editResultClass">Class</label>
+
                         <select id="editResultClass">
+
                             <option value="">Select Class</option>
+
                             <option value="Form 1">Form 1</option>
+
                             <option value="Form 2">Form 2</option>
+
                             <option value="Form 3">Form 3</option>
+
                             <option value="Form 4">Form 4</option>
+
                         </select>
+
                     </div>
+
                     <div class="form-group">
+
                         <label for="editResultStream">Stream</label>
+
                         <select id="editResultStream">
+
                             <option value="">Select Stream</option>
+
                             <option value="A">A</option>
+
                             <option value="B">B</option>
+
                             <option value="C">C</option>
+
                         </select>
+
                     </div>
+
                     <div class="form-group">
+
                         <label for="editResultYear">Year</label>
+
                         <select id="editResultYear">
+
                             <option value="">Select Year</option>
+
                             <option value="2025">2025</option>
+
                             <option value="2026">2026</option>
+
                             <option value="2027">2027</option>
+
                             <option value="2028">2028</option>
+
                             <option value="2029">2029</option>
+
                             <option value="2030">2030</option>
+
                         </select>
+
                     </div>
+
                     <div class="form-group">
-                        <label for="editResultExamType">Exam Type</label>
-                        <select id="editResultExamType">
-                            <option value="">Select Exam Type</option>
-                            <option value="Midterm">Midterm</option>
-                            <option value="Terminal">Terminal</option>
-                            <option value="Weekly Test">Weekly Test</option>
-                            <option value="Mock">Mock</option>
-                            <option value="Pre-National">Pre-National</option>
-                            <option value="Annual">Annual</option>
-                            <option value="Classes Test">Classes Test</option>
-                            <option value="Other Exam">Other Exam</option>
-                        </select>
+    <label for="editResultExamType">Exam Type</label>
+    <select id="editResultExamType">
+        <option value="">Select Exam Type</option>
+        <option value="Midterm">Midterm</option>
+        <option value="Terminal">Terminal</option>
+        <option value="Weekly Test">Weekly Test</option>
+        <option value="Mock">Mock</option>
+        <option value="Pre-National">Pre-National</option>
+        <option value="Annual">Annual</option>
+        <option value="Classes Test">Classes Test</option>
+        <option value="Other Exam">Other Exam</option>
+
+        <!-- Round Examinations -->
+        <option value="Round 1">Round 1</option>
+        <option value="Round 2">Round 2</option>
+        <option value="Round 3">Round 3</option>
+        <option value="Round 4">Round 4</option>
+        <option value="Round 5">Round 5</option>
+        <option value="Round 6">Round 6</option>
+
+        <!-- Set Examinations -->
+        <option value="Set 1">Set 1</option>
+        <option value="Set 2">Set 2</option>
+        <option value="Set 3">Set 3</option>
+        <option value="Set 4">Set 4</option>
+        <option value="Set 5">Set 5</option>
+        <option value="Set 6">Set 6</option>
+    </select>
                     </div>
+
                     <div class="form-group">
+
                         <label for="editResultSubject">Subject</label>
+
                         <select id="editResultSubject">
+
                             <option value="">Select Subject</option>
+
                             <option value="Tanzania History">History ya tanzania na maadili </option>
+
                             <option value="History">History</option>
+
                             <option value="Geography">Geography</option>
+
                             <option value="Kiswahili">Kiswahili</option>
+
                             <option value="English">English</option>
+
                             <option value="Biology">Biology</option>
+
                             <option value="Chemistry">Chemistry</option>
+
                             <option value="Physics">Physics</option>
+
                             <option value="Mathematics">Mathematics</option>
+
                             <option value="Business Study">Business Study</option>
+
                             <option value="EDK">EDK</option>
+
                             <option value="Book Keeping">Book Keeping</option>
+
                             <option value="Civics">Civics</option>
+
                         </select>
+
                     </div>
+
                     <button class="btn btn-primary" id="loadEditResultsBtn">Load Results to Edit</button>
+
                     <button class="btn btn-success" id="showEditResultsTableBtn">Show Edit Results Table</button>
+
                     <button class="btn btn-danger" id="hideEditResultsTableBtn" style="display: none;">Hide Edit Results Table</button>
+
                     <div id="editResultsTable" style="margin-top: 15px; display: none;"></div>
+
                     <div style="margin-top: 15px;">
+
                         <button class="btn btn-success" id="updateResultsBtn">Update Results</button>
+
                     </div>
+
                 </div>
+
             </div>
+                
          <!-- View Results Tab -->
 <div id="results" class="tab-content">
     <div class="card">
@@ -1196,18 +1408,34 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="resultsExamType">Exam Type</label>
-                <select id="resultsExamType">
-                    <option value="">Select Exam Type</option>
-                    <option value="Midterm">Midterm</option>
-                    <option value="Terminal">Terminal</option>
-                    <option value="Weekly Test">Weekly Test</option>
-                    <option value="Mock">Mock</option>
-                    <option value="Pre-National">Pre-National</option>
-                    <option value="Annual">Annual</option>
-                    <option value="Classes Test">Classes Test</option>
-                    <option value="Other Exam">Other Exam</option>
-                </select>
+    <label for="resultsExamType">Exam Type</label>
+    <select id="resultsExamType">
+        <option value="">Select Exam Type</option>
+        <option value="Midterm">Midterm</option>
+        <option value="Terminal">Terminal</option>
+        <option value="Weekly Test">Weekly Test</option>
+        <option value="Mock">Mock</option>
+        <option value="Pre-National">Pre-National</option>
+        <option value="Annual">Annual</option>
+        <option value="Classes Test">Classes Test</option>
+        <option value="Other Exam">Other Exam</option>
+
+        <!-- Round Examinations -->
+        <option value="Round 1">Round 1</option>
+        <option value="Round 2">Round 2</option>
+        <option value="Round 3">Round 3</option>
+        <option value="Round 4">Round 4</option>
+        <option value="Round 5">Round 5</option>
+        <option value="Round 6">Round 6</option>
+
+        <!-- Set Examinations -->
+        <option value="Set 1">Set 1</option>
+        <option value="Set 2">Set 2</option>
+        <option value="Set 3">Set 3</option>
+        <option value="Set 4">Set 4</option>
+        <option value="Set 5">Set 5</option>
+        <option value="Set 6">Set 6</option>
+    </select>
             </div>
             <button class="btn btn-primary" id="viewResultsBtn" onclick="viewResults()">View Results</button>
             <button class="btn btn-success" id="printResultsBtn">Print Results (PDF)</button>
@@ -1261,18 +1489,34 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="pastResultsExamType">Exam Type</label>
-            <select id="pastResultsExamType">
-                <option value="">Select Exam Type</option>
-                <option value="Midterm">Midterm</option>
-                <option value="Terminal">Terminal</option>
-                <option value="Weekly Test">Weekly Test</option>
-                <option value="Mock">Mock</option>
-                <option value="Pre-National">Pre-National</option>
-                <option value="Annual">Annual</option>
-                <option value="Classes Test">Classes Test</option>
-                <option value="Other Exam">Other Exam</option>
-            </select>
+    <label for="pastResultsExamType">Exam Type</label>
+    <select id="pastResultsExamType">
+        <option value="">Select Exam Type</option>
+        <option value="Midterm">Midterm</option>
+        <option value="Terminal">Terminal</option>
+        <option value="Weekly Test">Weekly Test</option>
+        <option value="Mock">Mock</option>
+        <option value="Pre-National">Pre-National</option>
+        <option value="Annual">Annual</option>
+        <option value="Classes Test">Classes Test</option>
+        <option value="Other Exam">Other Exam</option>
+
+        <!-- Round Examinations -->
+        <option value="Round 1">Round 1</option>
+        <option value="Round 2">Round 2</option>
+        <option value="Round 3">Round 3</option>
+        <option value="Round 4">Round 4</option>
+        <option value="Round 5">Round 5</option>
+        <option value="Round 6">Round 6</option>
+
+        <!-- Set Examinations -->
+        <option value="Set 1">Set 1</option>
+        <option value="Set 2">Set 2</option>
+        <option value="Set 3">Set 3</option>
+        <option value="Set 4">Set 4</option>
+        <option value="Set 5">Set 5</option>
+        <option value="Set 6">Set 6</option>
+    </select>
         </div>
         <button class="btn btn-primary" id="viewPastResultsBtn">View Past Results</button>
         <button class="btn btn-success" id="showPastResultsDisplayBtn">Show Past Results</button>
@@ -1320,18 +1564,34 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="smsExamType">Exam Type</label>
-            <select id="smsExamType">
-                <option value="">Select Exam Type</option>
-                <option value="Midterm">Midterm</option>
-                <option value="Terminal">Terminal</option>
-                <option value="Weekly Test">Weekly Test</option>
-                <option value="Mock">Mock</option>
-                <option value="Pre-National">Pre-National</option>
-                <option value="Annual">Annual</option>
-                <option value="Classes Test">Classes Test</option>
-                <option value="Other Exam">Other Exam</option>
-            </select>
+    <label for="smsExamType">Exam Type</label>
+    <select id="smsExamType">
+        <option value="">Select Exam Type</option>
+        <option value="Midterm">Midterm</option>
+        <option value="Terminal">Terminal</option>
+        <option value="Weekly Test">Weekly Test</option>
+        <option value="Mock">Mock</option>
+        <option value="Pre-National">Pre-National</option>
+        <option value="Annual">Annual</option>
+        <option value="Classes Test">Classes Test</option>
+        <option value="Other Exam">Other Exam</option>
+
+        <!-- Round Examinations -->
+        <option value="Round 1">Round 1</option>
+        <option value="Round 2">Round 2</option>
+        <option value="Round 3">Round 3</option>
+        <option value="Round 4">Round 4</option>
+        <option value="Round 5">Round 5</option>
+        <option value="Round 6">Round 6</option>
+
+        <!-- Set Examinations -->
+        <option value="Set 1">Set 1</option>
+        <option value="Set 2">Set 2</option>
+        <option value="Set 3">Set 3</option>
+        <option value="Set 4">Set 4</option>
+        <option value="Set 5">Set 5</option>
+        <option value="Set 6">Set 6</option>
+    </select>
         </div>
         <button class="btn btn-primary" id="loadStudentsForSMSBtn">Load Students</button>
         <div id="smsStatus" style="margin-top: 15px;">
@@ -1363,18 +1623,35 @@
                             <h3>Configure Exam Types</h3>
                             <form id="examTypeSettingsForm">
                                 <div class="form-group">
-                                    <label for="allowedExamTypes">Allowed Exam Types</label>
-                                    <select id="allowedExamTypes" multiple required>
-                                        <option value="Midterm">Midterm</option>
-                                        <option value="Terminal">Terminal</option>
-                                        <option value="Weekly Test">Weekly Test</option>
-                                        <option value="Mock">Mock</option>
-                                        <option value="Pre-National">Pre-National</option>
-                                        <option value="Annual">Annual</option>
-                                        <option value="Classes Test">Classes Test</option>
-                                        <option value="Other Exam">Other Exam</option>
-                                    </select>
-                                </div>
+                                    <div class="form-group">
+    <label for="allowedExamTypes">Allowed Exam Types</label>
+    <select id="allowedExamTypes" multiple required>
+        <option value="Midterm">Midterm</option>
+        <option value="Terminal">Terminal</option>
+        <option value="Weekly Test">Weekly Test</option>
+        <option value="Mock">Mock</option>
+        <option value="Pre-National">Pre-National</option>
+        <option value="Annual">Annual</option>
+        <option value="Classes Test">Classes Test</option>
+        <option value="Other Exam">Other Exam</option>
+
+        <!-- Round Examinations -->
+        <option value="Round 1">Round 1</option>
+        <option value="Round 2">Round 2</option>
+        <option value="Round 3">Round 3</option>
+        <option value="Round 4">Round 4</option>
+        <option value="Round 5">Round 5</option>
+        <option value="Round 6">Round 6</option>
+
+        <!-- Set Examinations -->
+        <option value="Set 1">Set 1</option>
+        <option value="Set 2">Set 2</option>
+        <option value="Set 3">Set 3</option>
+        <option value="Set 4">Set 4</option>
+        <option value="Set 5">Set 5</option>
+        <option value="Set 6">Set 6</option>
+    </select>
+                                    </div>
                                 <button type="submit" class="btn btn-primary">Save Settings</button>
                             </form>
                         </div>
@@ -1522,18 +1799,34 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="deleteExamType">Exam Type</label>
-                                <select id="deleteExamType">
-                                    <option value="">Select Exam Type</option>
-                                    <option value="Midterm">Midterm</option>
-                                    <option value="Terminal">Terminal</option>
-                                    <option value="Weekly Test">Weekly Test</option>
-                                    <option value="Mock">Mock</option>
-                                    <option value="Pre-National">Pre-National</option>
-                                    <option value="Annual">Annual</option>
-                                    <option value="Classes Test">Classes Test</option>
-                                    <option value="Other Exam">Other Exam</option>
-                                </select>
+    <label for="deleteExamType">Exam Type</label>
+    <select id="deleteExamType">
+        <option value="">Select Exam Type</option>
+        <option value="Midterm">Midterm</option>
+        <option value="Terminal">Terminal</option>
+        <option value="Weekly Test">Weekly Test</option>
+        <option value="Mock">Mock</option>
+        <option value="Pre-National">Pre-National</option>
+        <option value="Annual">Annual</option>
+        <option value="Classes Test">Classes Test</option>
+        <option value="Other Exam">Other Exam</option>
+
+        <!-- Round Examinations -->
+        <option value="Round 1">Round 1</option>
+        <option value="Round 2">Round 2</option>
+        <option value="Round 3">Round 3</option>
+        <option value="Round 4">Round 4</option>
+        <option value="Round 5">Round 5</option>
+        <option value="Round 6">Round 6</option>
+
+        <!-- Set Examinations -->
+        <option value="Set 1">Set 1</option>
+        <option value="Set 2">Set 2</option>
+        <option value="Set 3">Set 3</option>
+        <option value="Set 4">Set 4</option>
+        <option value="Set 5">Set 5</option>
+        <option value="Set 6">Set 6</option>
+    </select>
                             </div>
                             <button class="btn btn-danger" id="deleteResultsBtn">Delete Results</button>
                         </div>
@@ -1571,18 +1864,34 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="archiveExamType">Exam Type</label>
-                                <select id="archiveExamType">
-                                    <option value="">Select Exam Type</option>
-                                    <option value="Midterm">Midterm</option>
-                                    <option value="Terminal">Terminal</option>
-                                    <option value="Weekly Test">Weekly Test</option>
-                                    <option value="Mock">Mock</option>
-                                    <option value="Pre-National">Pre-National</option>
-                                    <option value="Annual">Annual</option>
-                                    <option value="Classes Test">Classes Test</option>
-                                    <option value="Other Exam">Other Exam</option>
-                                </select>
+    <label for="archiveExamType">Exam Type</label>
+    <select id="archiveExamType">
+        <option value="">Select Exam Type</option>
+        <option value="Midterm">Midterm</option>
+        <option value="Terminal">Terminal</option>
+        <option value="Weekly Test">Weekly Test</option>
+        <option value="Mock">Mock</option>
+        <option value="Pre-National">Pre-National</option>
+        <option value="Annual">Annual</option>
+        <option value="Classes Test">Classes Test</option>
+        <option value="Other Exam">Other Exam</option>
+
+        <!-- Round Examinations -->
+        <option value="Round 1">Round 1</option>
+        <option value="Round 2">Round 2</option>
+        <option value="Round 3">Round 3</option>
+        <option value="Round 4">Round 4</option>
+        <option value="Round 5">Round 5</option>
+        <option value="Round 6">Round 6</option>
+
+        <!-- Set Examinations -->
+        <option value="Set 1">Set 1</option>
+        <option value="Set 2">Set 2</option>
+        <option value="Set 3">Set 3</option>
+        <option value="Set 4">Set 4</option>
+        <option value="Set 5">Set 5</option>
+        <option value="Set 6">Set 6</option>
+    </select>
                             </div>
                             <button class="btn btn-success" id="archiveResultsBtn">Archive</button>
                         </div>
@@ -1627,18 +1936,34 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="reportExamType">Exam Type</label>
-            <select id="reportExamType">
-                <option value="">Select Exam Type</option>
-                <option value="Midterm">Midterm</option>
-                <option value="Terminal">Terminal</option>
-                <option value="Weekly Test">Weekly Test</option>
-                <option value="Mock">Mock</option>
-                <option value="Pre-National">Pre-National</option>
-                <option value="Annual">Annual</option>
-                <option value="Classes Test">Classes Test</option>
-                <option value="Other Exam">Other Exam</option>
-            </select>
+    <label for="reportExamType">Exam Type</label>
+    <select id="reportExamType">
+        <option value="">Select Exam Type</option>
+        <option value="Midterm">Midterm</option>
+        <option value="Terminal">Terminal</option>
+        <option value="Weekly Test">Weekly Test</option>
+        <option value="Mock">Mock</option>
+        <option value="Pre-National">Pre-National</option>
+        <option value="Annual">Annual</option>
+        <option value="Classes Test">Classes Test</option>
+        <option value="Other Exam">Other Exam</option>
+
+        <!-- Round Examinations -->
+        <option value="Round 1">Round 1</option>
+        <option value="Round 2">Round 2</option>
+        <option value="Round 3">Round 3</option>
+        <option value="Round 4">Round 4</option>
+        <option value="Round 5">Round 5</option>
+        <option value="Round 6">Round 6</option>
+
+        <!-- Set Examinations -->
+        <option value="Set 1">Set 1</option>
+        <option value="Set 2">Set 2</option>
+        <option value="Set 3">Set 3</option>
+        <option value="Set 4">Set 4</option>
+        <option value="Set 5">Set 5</option>
+        <option value="Set 6">Set 6</option>
+    </select>
         </div>
         <div class="form-group">
             <label for="schoolCloseDate">School Closure Date</label>
