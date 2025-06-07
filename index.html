@@ -2918,58 +2918,64 @@ function viewResults() {
     const filteredResults = results.filter(r => r.examType === examType && r.year === year);
 
     const studentResults = filteredStudents.map((student, index) => {
-    let totalMarks = 0;
-    const row = { 
-        student, 
-        marks: {}, 
-        grades: {}, 
-        totalMarks: 0, 
-        points: '-', 
-        division: '-', 
-        overallGrade: '-' 
-    };
-    const studentResults = filteredResults.filter(r => r.studentId === student.id);
-    getSubjects().forEach(subject => {
-        const result = studentResults.find(r => r.subject === subject);
-        row.marks[subject] = result && result.marks != null ? result.marks : null;
-        const grade = result && result.marks != null ? getGrade(result.marks) : '-';
-        row.grades[subject] = grade;
-        if (result && result.marks != null && ['A', 'B', 'C', 'D'].includes(grade)) {
-            totalMarks += parseInt(result.marks) || 0;
-        }
-    });
-    row.totalMarks = totalMarks || '-';
-    const pointsArray = getSubjects().map(subject => {
-        const grade = row.grades[subject];
-        return grade && ['A', 'B', 'C', 'D', 'F'].includes(grade) ? getPoints(grade) : null;
-    });
-    // Calculate points for top 7 subjects
-    const validPoints = pointsArray.filter(p => p !== null);
-    const edkIndex = getSubjects().indexOf('EDK');
-    const edkPoint = edkIndex !== -1 && pointsArray[edkIndex] !== null ? pointsArray[edkIndex] : null;
-    const otherPoints = validPoints
-        .filter((p, idx) => idx !== edkIndex || edkPoint === null)
-        .sort((a, b) => a - b);
-    const topPoints = edkPoint !== null 
-        ? [edkPoint, ...otherPoints.slice(0, 6)]
-        : otherPoints.slice(0, 7);
-    row.points = topPoints.length >= 7 ? topPoints.reduce((sum, p) => sum + p, 0) : '-';
-    row.division = getDivision(pointsArray);
-    row.overallGrade = getOverallGrade(studentResults);
-    return row;
-}).sort((a, b) => b.totalMarks - a.totalMarks);
-    const divisionSummary = {
-        'I': { male: 0, female: 0, total: 0 },
-        'II': { male: 0, female: 0, total: 0 },
-        'III': { male: 0, female: 0, total: 0 },
-        'IV': { male: 0, female: 0, total: 0 },
-        'FAIL': { male: 0, female: 0, total: 0 }
-    };
+        let totalMarks = 0;
+        const row = {
+            student,
+            marks: {},
+            grades: {},
+            totalMarks: 0,
+            points: '-',
+            division: '-',
+            overallGrade: '-'
+        };
+
+        const studentResults = filteredResults.filter(r => r.studentId === student.id);
+        const subjects = getSubjects();
+
+        subjects.forEach(subject => {
+            const result = studentResults.find(r => r.subject === subject);
+            const marks = result && result.marks != null ? result.marks : null;
+            const grade = result && result.marks != null ? getGrade(result.marks) : '-';
+            row.marks[subject] = marks !== null ? marks : '-';
+            row.grades[subject] = grade;
+            if (marks !== null && ['A', 'B', 'C', 'D'].includes(grade)) {
+                totalMarks += parseInt(marks) || 0;
+            }
+        });
+
+        row.totalMarks = totalMarks || '-';
+
+        const pointsArray = subjects.map(subject => {
+            const grade = row.grades[subject];
+            return grade && ['A', 'B', 'C', 'D', 'F'].includes(grade) ? getPoints(grade) : null;
+        });
+
+        const edkIndex = subjects.indexOf('EDK');
+        const edkPoint = edkIndex !== -1 && pointsArray[edkIndex] !== null ? pointsArray[edkIndex] : null;
+        const otherPoints = pointsArray
+            .filter((p, idx) => idx !== edkIndex || edkPoint === null)
+            .sort((a, b) => a - b);
+        const topPoints = edkPoint !== null
+            ? [edkPoint, ...otherPoints.slice(0, 6)]
+            : otherPoints.slice(0, 7);
+
+        row.points = topPoints.length >= 7 ? topPoints.reduce((sum, p) => sum + p, 0) : '-';
+        row.division = getDivision(pointsArray);
+        row.overallGrade = getOverallGrade(studentResults);
+        return row;
+    }).sort((a, b) => b.totalMarks - a.totalMarks);
+
+    const divisionSummary = {};
 
     studentResults.forEach(row => {
         const gender = row.student.gender.toLowerCase();
-        divisionSummary[row.division][gender]++;
-        divisionSummary[row.division].total++;
+        if (row.division && row.division !== '-') {
+            if (!divisionSummary[row.division]) {
+                divisionSummary[row.division] = { male: 0, female: 0, total: 0 };
+            }
+            divisionSummary[row.division][gender]++;
+            divisionSummary[row.division].total++;
+        }
     });
 
     let html = `
@@ -2977,37 +2983,37 @@ function viewResults() {
         <div class="table-container">
             <table class="table">
                 <thead>
-    <tr>
-        <th>Position</th>
-        <th>Name</th>
-        <th>Gender</th>
-        ${getSubjects().map(subject => `
-            <th>${getSubjectAbbreviation(subject)} Marks</th>
-            <th>${getSubjectAbbreviation(subject)} Grade</th>
-        `).join('')}
-        <th>Total Marks</th>
-        <th>Points</th>
-        <th>Division</th>
-        <th>Overall Grade</th>
-    </tr>
-</thead>
-              <tbody>
-    ${studentResults.map((row, index) => `
-        <tr>
-            <td>${index + 1}</td>
-            <td>${row.student.fullName}</td>
-            <td>${row.student.gender}</td>
-            ${getSubjects().map(subject => `
-                <td>${row.marks[subject] !== null ? row.marks[subject] : '-'}</td>
-                <td>${row.grades[subject]}</td>
-            `).join('')}
-            <td>${row.totalMarks}</td>
-            <td>${row.points}</td>
-            <td>${row.division}</td>
-            <td>${row.overallGrade}</td>
-        </tr>
-    `).join('')}
-</tbody>
+                    <tr>
+                        <th>Position</th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        ${getSubjects().map(subject => `
+                            <th>${getSubjectAbbreviation(subject)} Marks</th>
+                            <th>${getSubjectAbbreviation(subject)} Grade</th>
+                        `).join('')}
+                        <th>Total Marks</th>
+                        <th>Points</th>
+                        <th>Division</th>
+                        <th>Overall Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${studentResults.map((row, index) => `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${row.student.fullName}</td>
+                            <td>${row.student.gender}</td>
+                            ${getSubjects().map(subject => `
+                                <td>${row.marks[subject]}</td>
+                                <td>${row.grades[subject]}</td>
+                            `).join('')}
+                            <td>${row.totalMarks}</td>
+                            <td>${row.points}</td>
+                            <td>${row.division}</td>
+                            <td>${row.overallGrade}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
             </table>
         </div>
         <div class="summary-tables">
@@ -3022,7 +3028,7 @@ function viewResults() {
                     </tr>
                 </thead>
                 <tbody>
-                    ${['I', 'II', 'III', 'IV', 'FAIL'].map(division => `
+                    ${Object.keys(divisionSummary).filter(division => divisionSummary[division].total > 0).map(division => `
                         <tr>
                             <td>${division}</td>
                             <td>${divisionSummary[division].male}</td>
@@ -3039,8 +3045,6 @@ function viewResults() {
     resultsDisplayDiv.innerHTML = html;
     showSection('resultsDisplay', 'showResultsDisplayBtn', 'hideResultsDisplayBtn');
 }
-
-
 function printResults() {
     console.log('Printing results');
     const element = document.getElementById('resultsDisplay');
